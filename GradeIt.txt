@@ -1,0 +1,39 @@
+Name: Erica Vitale
+Project Title: GradeIt
+Project Stack: Python, Flask, MySQL
+GitHub Repo Link: https://github.com/eriVitale/GradeIt.git
+
+Project Description: Gradebook Portal for teachers to add and keep track of assignments and grades. Teachers can also add students to their roster by first and last name.
+
+New Programming Concept(s) I'm Planning to Learn: Many to Many
+
+Week 1 Features (to show at Review during Week 2): Login/Registration, CRUD on Assignments
+- 
+
+Week 2 Features (to show at first office hour/lecture of Week 3): CRUD Students list
+- ***Finish CSS work (could be Bootstrap or another framework too instead of CSS)***
+- 
+
+Product Backlog (If I have more time after completing my MVP, I'll start to work on...):
+- Add registration option for student account. Students can join teacher's roster by id, and teachers can add students by id.
+- Add parent email functionality/auto alert for grades below 60%
+- Add ability for teachers to create multiple class lists. The dashboard becomes a list of classes which, when selected, display that class's gradebook.
+
+
+
+
+Other Week 1 Tasks
+- Sign up for a group (https://docs.google.com/spreadsheets/d/1FKXoE6-mE-ZD2OlV6ZNJf0e8M6HzOFPzEGxwB9FYO8w/edit#gid=0)
+- Schedule a Review during Week 2 (https://calendly.com/d/cnc-5t7-4yv/solo-project-sprint-w1-review)
+- Create GitHub repo for project
+- Create a .gitignore file for my project for my GitHub repo (enter in React, Python, or Java at https://www.toptal.com/developers/gitignore)
+- Finish this completed txt file and create project wireframe using Balsamiq (https://balsamiq.com/wireframes/) [Drawings and other wireframe programs also accepted!]
+- Email Zack this completed txt file, and project wireframe for approval
+- Submit completed wireframe on platform (https://login.codingdojo.com/m/97/6237/44911)
+- Complete Arrays To Do 1 & Arrays To Do 2 assignments
+
+
+Other Week 2 Tasks
+- Schedule my time for my presentation (https://docs.google.com/spreadsheets/d/1FKXoE6-mE-ZD2OlV6ZNJf0e8M6HzOFPzEGxwB9FYO8w/edit#gid=414986054)
+- Begin to talk with group about project ideas and what skills I bring to the table
+- Complete Singly Linked Lists Fronts & Display assignments
