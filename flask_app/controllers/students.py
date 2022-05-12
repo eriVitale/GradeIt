@@ -9,28 +9,27 @@ def students(id):
     data={
         'id':id
     }
-    return render_template('students.html', teacher=Teacher.get_from_id(data),teacher_students=Teacher.get_teachers_students(data),students=Student.get_all())
+    return render_template('students.html', teacher=Teacher.get_teachers_students(data), students=Student.get_all())
 
 
-@app.route('/add_student/<int:teacher_id>/<int:student_id>')
-def add_student(teacher_id,student_id):
-
+@app.route('/add_student/<int:student_id>')
+def add_student(student_id):
     data={
-        'teacher_id':teacher_id,
+        'id':session['user_id'],
         'student_id':student_id
     }
     if Teacher.teacher_has_student(data):
         print("Teacher has student")
-        return render_template('students.html', teacher=Teacher.get_from_teacher_id(data),teachers_students=Teacher.get_teachers_students(data),students=Student.get_all())
+        return render_template('students.html', teacher=Teacher.get_teachers_students(data),students=Student.get_all())
     Student.add(data)
-    return render_template('students.html', teacher=Teacher.get_from_teacher_id(data),teachers_students=Teacher.get_teachers_students(data),students=Student.get_all())
+    return render_template('students.html', teacher=Teacher.get_teachers_students(data), students=Student.get_all())
 
 
-@app.route('/remove_student/<int:teacher_id>/<int:student_id>')
-def remove_student(teacher_id,student_id):
+@app.route('/remove_student/<int:student_id>')
+def remove_student(student_id):
     data={
-        'teacher_id':teacher_id,
+        'id':session['user_id'],
         'student_id':student_id
     }
     Student.remove(data)
-    return render_template('students.html', teacher=Teacher.get_from_teacher_id(data),teachers_students=Teacher.get_teachers_students(data),students=Student.get_all())
+    return render_template('students.html',teacher=Teacher.get_teachers_students(data),students=Student.get_all())

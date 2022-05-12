@@ -16,6 +16,7 @@ class Teacher:
         self.email=data['email']
         self.password=data['password']
         self.prefix=data['prefix']
+        self.account_type=data['account_type']
         self.created_at=data['created_at']
         self.updated_at=data['updated_at']
 
@@ -25,7 +26,7 @@ class Teacher:
     @classmethod
     def save(cls,data):
         print(data)
-        query="INSERT INTO teachers (first_name, last_name, email, password, prefix, created_at, updated_at) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, %(prefix)s, NOW(), NOW())"
+        query="INSERT INTO teachers (first_name, last_name, email, password, prefix, account_type, created_at, updated_at) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, %(prefix)s, %(account_type)s, NOW(), NOW())"
         return connectToMySQL(cls.db).query_db(query,data)
 
     @classmethod
@@ -44,28 +45,35 @@ class Teacher:
     
     @classmethod
     def get_from_teacher_id(cls,data):
-        query="SELECT * FROM teachers WHERE id=%(teacher_id)s;"
-        results=connectToMySQL(cls.db).query_db(query,data)
-        return cls(results[0])
-
-    @classmethod
-    def get_from_teacher_id(cls,data):
-        query="SELECT * FROM teachers WHERE id=%(teacher_id)s;"
+        query="SELECT * FROM teachers WHERE id=%(id)s;"
         results=connectToMySQL(cls.db).query_db(query,data)
         return cls(results[0])
 
     @classmethod
     def get_teachers_students(cls,data):
-        query="SELECT * FROM teachers_students LEFT JOIN students ON students.id=teachers_students.student_id WHERE teacher_id=%(teacher_id)s"
+        query="SELECT * FROM teachers LEFT JOIN teachers_students ON teachers_students.teacher_id=teachers.id LEFT JOIN students ON students.id=teachers_students.student_id WHERE teachers.id=%(id)s"
         results=connectToMySQL(cls.db).query_db(query,data)
-        print(results)
-        return results
-    
+        this_teacher=cls(results[0])
+        for row in results:
+            student_data={
+                "id":row['students.id'],
+                "first_name":row['students.first_name'],
+                "last_name":row['students.last_name'],
+                "email":row['students.email'],
+                "password":row['students.password'],
+                'prefix':row['students.prefix'],
+                "account_type":row['students.account_type'],
+                "created_at":row['students.created_at'],
+                "updated_at":row['students.updated_at'],
+            }
+            this_teacher.students.append(student.Student(student_data))
+            print (this_teacher.students)
+        return this_teacher
+
     @classmethod
     def teacher_has_student(cls,data):
-        query="SELECT * FROM teachers_students WHERE teachers_students.teacher_id=%(teacher_id)s AND teachers_students.student_id=%(student_id)s;"
+        query="SELECT * FROM teachers_students WHERE teachers_students.teacher_id=%(id)s AND teachers_students.student_id=%(student_id)s;"
         results=connectToMySQL(cls.db).query_db(query,data)
-        print(results)
         return results
 
     @staticmethod

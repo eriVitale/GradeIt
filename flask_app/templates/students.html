@@ -24,12 +24,12 @@
         <div class="col">
         <h2>{{teacher.prefix}} {{teacher.last_name}}'s Students</h2>
         <ul class="list-group">
-            {% if teachers_students %}
-                {% for student in teachers_students %}
-                <li class="list-group-item">{{student.first_name}} {{student.last_name}} <a href="/remove_student/{{teacher.id}}/{{student.id}}">Remove</a></li>
-                {% endfor %}
+            {% if not teacher.students %}
+                <li class="list-group-item">No students. Add students to see student list.</li>
             {% else %}
-            <li class="list-group-item">No students. Add students to see student list.</li>
+                {% for student in teacher.students %}
+                <li class="list-group-item">{{student.first_name}} {{student.last_name}} <a href="/remove_student/{{student.id}}">Remove</a></li>
+                {% endfor %}
             {% endif %}
         </ul>
         </div>
@@ -38,8 +38,7 @@
             <ul class="list-group">
             {% if students %}
                 {% for student in students %}
-                <li class="list-group-item">{{student.first_name}} {{student.last_name}} <a href="/add_student/{{teacher.id}}/{{student.id}}">Add Student</a></li>
-            
+                <li class="list-group-item">{{student.first_name}} {{student.last_name}} <a href="/add_student/{{student.id}}">Add Student</a></li>
                 {% endfor %}
             {% endif %}
             </ul>

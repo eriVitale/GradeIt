@@ -15,6 +15,7 @@ class Student:
         self.email=data['email']
         self.password=data['password']
         self.prefix=data['prefix']
+        self.account_type=data['account_type']
         self.created_at=data['created_at']
         self.updated_at=data['updated_at']
 
@@ -29,12 +30,12 @@ class Student:
     
     @classmethod
     def add(cls,data):
-        query="INSERT INTO teachers_students (teacher_id, student_id) VALUES (%(teacher_id)s,%(student_id)s); "
+        query="INSERT INTO teachers_students (teacher_id, student_id) VALUES (%(id)s,%(student_id)s); "
         return connectToMySQL(cls.db).query_db(query,data)
     
     @classmethod
     def remove(cls,data):
-        query="DELETE FROM teachers_students WHERE student_id=%(student_id)s AND teacher_id=%(teacher_id)s;"
+        query="DELETE FROM teachers_students WHERE student_id=%(student_id)s;"
         return connectToMySQL(cls.db).query_db(query,data)
 
     @classmethod

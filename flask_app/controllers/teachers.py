@@ -23,7 +23,8 @@ def register():
             "last_name":request.form['last_name'],
             "email": request.form['email'],
             "password": pw_hash,
-            "prefix":request.form['prefix']
+            "prefix":request.form['prefix'],
+            'account_type':request.form['account_type'],
         }
         id=Teacher.save(data)
         session['user_id']=id
@@ -34,7 +35,8 @@ def register():
             "last_name":request.form['last_name'],
             "email": request.form['email'],
             "password": pw_hash,
-            "prefix":request.form['prefix']
+            "prefix":request.form['prefix'],
+            'account_type':request.form['account_type']
         }
         id=Student.save(data)
         session['user_id']=id

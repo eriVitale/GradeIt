@@ -23,7 +23,7 @@
     <table class="table table-light table-striped">
         <thead>
           <tr class="align-top">
-            <th scope="col"><a href="/{{teacher.id}}/students">Students</a></th>
+            <th scope="col"><a href="/{{session['user_id']}}/students">Students</a></th>
             {% if assignments %}
                 {% for assignment in assignments %}
             <th scope="col">
@@ -37,7 +37,7 @@
           </tr>
         </thead>
         <tbody>
-         {% for student in teachers_students %}
+         {% for student in teacher.students %}
          <tr>
             <th scope="row">{{student.first_name}} {{student.last_name}}</th>
             {% for grade in student_assignments %}
