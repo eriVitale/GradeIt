@@ -11,16 +11,18 @@
 <body>
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
         <div class="container-fluid justify-content-between">
-            <h1 class="fw-bold m-2">GradeIt</h1>
+            <div class="d-flex align-items-end">
+                <h1 class="fw-bold m-2">GradeIt</h1><img class="img-fluid" style="max-width: 15%" src="/static/bar-chart.png" alt="icon">
+            </div>
             <div class="d-flex justify-content-around">
                 <a class="btn btn-primary m-2" href="/assignment/create">Create Assignment</a>
                 <a class="btn btn-primary m-2"href="/logout">Sign Out</a>
             </div>
         </div>
     </nav>
-    <div class="contain m-2">
+    <div class="container m-2">
     <h2>{{teacher.prefix}} {{teacher.last_name}}'s Gradebook</h2>
-    <table class="table table-light table-striped">
+    <table class="table table-striped table-primary">
         <thead>
           <tr class="align-top">
             <th scope="col"><a href="/{{session['user_id']}}/students">Students</a></th>
