@@ -45,15 +45,26 @@ def register():
 @app.route('/login', methods=['POST'])
 def login():
     data={'email': request.form['email']}
-    user_in_db=Teacher.get_from_email(data)
-    if not user_in_db:
+    user_in_teacher_db=Teacher.get_from_email(data)
+    user_in_student_db=Student.get_from_email(data)
+    if user_in_teacher_db:
+        user_in_db=user_in_teacher_db
+    elif user_in_student_db:
+        user_in_db=user_in_student_db
+    else:
         flash("Invalid Email/Password")
         return redirect('/')
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
         flash("Invalid Email/Password")
         return redirect('/')
     session['user_id']=user_in_db.id
-    return redirect('/dashboard')
+    if user_in_teacher_db:
+        return redirect('/dashboard')
+    else:
+        return redirect('/student_dashboard')
+
+
+    
 
 @app.route('/dashboard')
 def home():
@@ -63,7 +74,7 @@ def home():
         'id': session['user_id'],
         'teacher_id': session['user_id'],
     }
-    return render_template('dashboard.html', teacher=Teacher.get_from_id(data), assignments=Assignment.get_teacher_assignments(data),teachers_students=Teacher.get_teachers_students(data))
+    return render_template('dashboard.html', assignments=Assignment.get_teacher_assignments(data),teacher=Teacher.get_teachers_students(data))
 
 @app.route('/logout')
 def logout():

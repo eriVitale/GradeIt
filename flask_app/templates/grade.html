@@ -24,7 +24,6 @@
         <p>{{assignment.points}} points <br>   
         Assigned on {{assignment.date.strftime('%m/%d/%Y')}}  <br> 
         <a href="/edit/{{assignment.id}}">Edit</a>   <a href="/delete/{{assignment.id}}">Delete</a><br>
-        <form action="/assignment/{{assignment.id}}/save_grades" method="post">
         <table class="table">
             <thead>
                 <tr>
@@ -33,19 +32,24 @@
                 </tr>
             </thead>
             <tbody>
-                {% for student in teachers_students %}
-                <tr>
-                <th scope="row">{{student.first_name}} {{student.last_name}}</th>
-                <input type="hidden" name="first_name" value={{student.first_name}}>
-                <input type="hidden" name="last_name" value={{student.last_name}}>
-                <input type="hidden" name="student_id" value={{student.id}}>
-                <td><input type="text" name="grade" style="width: 30px">/{{assignment.points}}</td>
-                </tr>
-                {% endfor %}
+                <form action="/assignment/{{assignment.id}}/save_grades" method="post">
+                    {% for index in range(teacher.students|length) %}
+                    <tr class="align-middle">
+                    <th scope="row">{{teacher.students[index].first_name}} {{teacher.students[index].last_name}}</th>
+                    <input type="hidden" name="student_id" value={{teacher.students[index].id}}>
+                    {% if teacher.students[index].id in assignment.grades|map(attribute='student_id') %}
+                    <td><input type="text" name="grade" style="width: 30px" value={{assignment.grades[index].grade}}><span>/{{assignment.points}}</span></td>
+                    {% else %}
+                    <td><input type="text" name="grade" style="width: 30px"><span>/{{assignment.points}}</span></td>
+                    {% endif %}
+                    </tr>
+                    {% endfor %}
+                    <td><input type="submit" class="btn btn-primary"></td>
+                </form>
+          
             </tbody>
-        </table>
-        <input type="submit" class="btn btn-primary mt-3"></input>
-        </form>
+            </table>
+        
     </div>
 </body>
 </html>

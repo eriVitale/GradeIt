@@ -23,8 +23,8 @@
         <h2>{{assignment.name}}</h2>
         <p>{{assignment.points}} points <br>   
         Assigned on {{assignment.date.strftime('%m/%d/%Y')}}  <br> 
-        <a href="/edit/{{assignment.id}}">Edit</a>   <a href="/delete/{{assignment.id}}">Delete</a><br>
-        <a class="btn btn-primary mt-4" href="/assignment/add_grades/{{assignment.id}}">Add Student Grades</a>
+        <a href="/delete/{{assignment.id}}">Delete</a><br>
+        <a class="btn btn-primary mt-4" href="/assignment/add_grades/{{assignment.id}}">Add/Update Student Grades</a>
         </p>
     </div>
 </body>

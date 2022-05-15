@@ -13,41 +13,28 @@
         <div class="container-fluid justify-content-between">
             <h1 class="fw-bold m-2">GradeIt</h1>
             <div class="d-flex justify-content-around">
-                <a class="btn btn-primary m-2" href="/assignment/create">Create Assignment</a>
                 <a class="btn btn-primary m-2"href="/logout">Sign Out</a>
             </div>
         </div>
     </nav>
     <div class="contain m-2">
-    <h2>{{teacher.prefix}} {{teacher.last_name}}'s Gradebook</h2>
+    <h2>{{student.first_name}} {{student.last_name}}'s Grades</h2>
     <table class="table table-light table-striped">
         <thead>
-          <tr class="align-top">
-            <th scope="col"><a href="/{{session['user_id']}}/students">Students</a></th>
-            {% if assignments %}
-                {% for assignment in assignments %}
-            <th scope="col">
-                <div class="container-fluid text-center">
-                    <a href="/assignment/{{assignment.id}}">{{assignment.name}}</a><br>
-                    {{assignment.points}} points<br> {{assignment.date.strftime('%m/%d/%Y')}}
-                </div>
-            </th>
+            <tr class="align-top">
+                {% for assignment in student.assignments%}
+                <th class="text-center" scope="col">{{assignment.name}}<br>{{assignment.points}} points<br>{{assignment.date.strftime('%m/%d/%Y')}}</th>
                 {% endfor %}
-            {% endif %}
-          </tr>
+            </tr>
         </thead>
         <tbody>
-         {% for student in teacher.students %}
-         <tr>
-            <th scope="row">{{student.first_name}} {{student.last_name}}</th>
-            {% for grade in student.grades %}
-            <td class="text-center">{{grade.grade}}</td> 
+            <tr>
+            {% for assignment in student.assignments %}
+            <td class="text-center" scope="row">{{assignment.grade}} / {{assignment.points}}</td>
             {% endfor %}
-         </tr>
-         {% endfor %}
+            </tr>
         </tbody>
-      </table>
-
+    </table>
     </div>
 </body>
 </html>

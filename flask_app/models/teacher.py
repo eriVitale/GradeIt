@@ -1,6 +1,9 @@
+import this
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import app
 from flask_app.models import student
+from flask_app.models import assignment
+from flask_app.models import grade
 from flask import flash, session
 import re
 from flask_bcrypt import Bcrypt
@@ -35,7 +38,22 @@ class Teacher:
         results=connectToMySQL(cls.db).query_db(query,data)
         if len(results)<1:
             return False
-        return cls(results[0])
+        else:
+            return cls(results[0])
+
+    @classmethod
+    def get_students_teachers(cls,data):
+        query="SELECT * FROM teachers_students WHERE student_id=%(student_id)s; "
+        results=connectToMySQL(cls.db).query_db(query,data)
+        this_students_teachers=[]
+        for row in results:
+            teacher={
+                'teacher_id':row['teacher_id']
+            }
+            this_students_teachers.append(teacher)
+
+        return this_students_teachers
+
 
     @classmethod
     def get_from_id(cls,data):
@@ -66,7 +84,9 @@ class Teacher:
                 "created_at":row['students.created_at'],
                 "updated_at":row['students.updated_at'],
             }
-            this_teacher.students.append(student.Student(student_data))
+            one_student=student.Student(student_data)
+            one_student.grades=grade.Grade.get_student_grades({'student_id':row['students.id']})
+            this_teacher.students.append(one_student)
             print (this_teacher.students)
         return this_teacher
 
