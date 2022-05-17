@@ -24,9 +24,11 @@
     <table class="table table-light table-striped">
         <thead>
             <tr class="align-top">
+                {% if assignments in pypystudent.assignments %}
                 {% for assignment in student.assignments%}
                 <th class="text-center" scope="col">{{assignment.name}}<br>{{assignment.points}} points<br>{{assignment.date.strftime('%m/%d/%Y')}}</th>
                 {% endfor %}
+                {% endif %}
             </tr>
         </thead>
         <tbody>
